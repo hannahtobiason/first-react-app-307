@@ -8,7 +8,7 @@ function MyApp() {
     return (
       <div className="container">
         <Table characterData={characters} removeCharacter = {removeOneCharacter} />
-        <Form />
+        <Form handleSubmit = {updateList}/>
       </div>
     );  
   
@@ -17,6 +17,10 @@ function MyApp() {
       return i !== index
     });
     setCharacters(updated);
+  }
+
+  function updateList(person){
+    setCharacters([...characters, person]);
   }
 }
 
