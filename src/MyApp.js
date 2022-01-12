@@ -25,7 +25,26 @@ function MyApp() {
       return false;
     }
   }
+
+  async function makePostCall(person){
+    try{
+      const response = await axios.post('http://localhost:500/users', person);
+      return response;
+    }
+    catch (error){
+      console.log(error);
+      return false;
+    }
+  }
   
+  function updateList(person){
+    makePostCall(person).then( result => {
+      if(result && result.status === 200){
+        setCharacters([...characters,person] );
+      } 
+    });
+  }
+
   function removeOneCharacter (index){
     const updated = characters.filter((character, i) => {
       return i !== index
@@ -33,9 +52,9 @@ function MyApp() {
     setCharacters(updated);
   }
 
-  function updateList(person){
+  /*function updateList(person){
     setCharacters([...characters, person]);
-  }
+  }*/
 }
 
 useEffect(() => {
