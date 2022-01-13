@@ -39,7 +39,7 @@ function MyApp() {
   // sending a post request to backend, wait for success//
   async function makePostCall(person){
     try{
-      const response = await axios.post('http://localhost:500/users', person);
+      const response = await axios.post('http://localhost:5000/users', person);
       return response;
     }
     catch (error){
