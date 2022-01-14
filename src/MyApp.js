@@ -47,6 +47,19 @@ function MyApp() {
       return false;
     }
   }
+
+  // sending a delete request to backend, wait for success//
+  async function makeDeleteCall(person){
+    console.log(person);
+    try{
+      const response = await axios.delete('http://localhost:5000/users/'+ person.id);
+      return response;
+    }
+    catch (error){
+      console.log(error);
+      return false;
+    }
+  }
   
   //only update list if request is successful (201 http status returned)//
   function updateList(person){
@@ -58,10 +71,16 @@ function MyApp() {
   }
 
   function removeOneCharacter (index){
-    const updated = characters.filter((character, i) => {
-      return i !== index
-    });
-    setCharacters(updated);
+    const person = characters[index];
+    makeDeleteCall(person).then( result => {
+      if(result && result.status === 204){
+        const updated = characters.filter((character, i) => {
+          return i !== index
+        });
+        setCharacters(updated);
+      }
+    })
+
   }
 
   /*function updateList(person){
