@@ -52,7 +52,7 @@ function MyApp() {
   async function makeDeleteCall(person){
     console.log(person);
     try{
-      const response = await axios.delete('http://localhost:5000/users/'+ person.id);
+      const response = await axios.delete('http://localhost:5000/users/'+ person._id);
       return response;
     }
     catch (error){
