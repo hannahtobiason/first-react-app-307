@@ -18,7 +18,7 @@ function MyApp() {
 
     return (
       <div className="container">
-        <Table characterData={characters} removeCharacter = {removeOneCharacter} />
+        <Table characterData={characters} removeCharacter = {removeOneCharacter} />*/
         <Form handleSubmit = {updateList}/>
       </div>
     );
@@ -37,9 +37,9 @@ function MyApp() {
   }
 
   // sending a post request to backend, wait for success//
-  async function makePostCall(person){
+  async function makePostCall(user){
     try{
-      const response = await axios.post('http://localhost:5000/users', person);
+      const response = await axios.post('http://localhost:5000/users', user);
       return response;
     }
     catch (error){
@@ -49,10 +49,10 @@ function MyApp() {
   }
 
   // sending a delete request to backend, wait for success//
-  async function makeDeleteCall(person){
-    console.log(person);
+  async function makeDeleteCall(user){
+    console.log(user);
     try{
-      const response = await axios.delete('http://localhost:5000/users/'+ person._id);
+      const response = await axios.delete('http://localhost:5000/users/'+ user._id);
       return response;
     }
     catch (error){
@@ -62,8 +62,8 @@ function MyApp() {
   }
   
   //only update list if request is successful (201 http status returned)//
-  function updateList(person){
-    makePostCall(person).then( result => {
+  function updateList(user){
+    makePostCall(user).then( result => {
       if(result && result.status === 201){
         setCharacters([...characters,result.data] );
       } 
@@ -71,8 +71,8 @@ function MyApp() {
   }
 
   function removeOneCharacter (index){
-    const person = characters[index];
-    makeDeleteCall(person).then( result => {
+    const user = characters[index];
+    makeDeleteCall(user).then( result => {
       if(result && result.status === 204){
         const updated = characters.filter((character, i) => {
           return i !== index
@@ -83,8 +83,8 @@ function MyApp() {
 
   }
 
-  /*function updateList(person){
-    setCharacters([...characters, person]);
+  /*function updateList(user){
+    setCharacters([...characters, user]);
   }*/
 }
 
